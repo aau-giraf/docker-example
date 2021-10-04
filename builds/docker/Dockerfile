@@ -8,7 +8,7 @@ RUN npm i
 
 # The express http server listens to this port.
 # By exposing it we allow outside communication to this port.
-EXPOSE 8080
+EXPOSE 80
 
 # This copies everything not ignored by the ".dockerignore"
 # this is done after the package.json copy because that should be cached.

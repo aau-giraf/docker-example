@@ -51,7 +51,7 @@ services:
     restart: always
     # Port mapping from the port "8080" on the host to "8080" in the container
     ports:
-      - 8080:8080
+      - 8080:80
     networks:
       - backend_net
     env_file:

@@ -7,6 +7,21 @@ DOCKERFILEPATH=./Dockerfile
 EXPOSEDPORT=8080
 LISTENPORT=8080
 
+.PHONY:
+help:
+	@echo 'Cleaning targets:'
+	@echo '  build_clean                   - Removes the image from the local docker library'
+	@echo '  dist_clean                    - Removes the image from the local docker library'
+	@echo 'Configuration targets:'
+	@echo '  build                         - builds the image based on the Dockerfile'
+	@echo '  create                        - Builds the image and creates the container but does not start it'
+	@echo '  run                           - Creates the container if it is not already, then it runs it'
+	@echo '  runit                         - The same as run, but interactive with stdin/out of the used terminal'
+	@echo 'General:'
+	@echo '  killall                       - Kills all running containers'
+	@echo '  images                        - Prints all images in the local repository'
+
+
 # builds a new image from the source code.
 .PHONY:
 build:

@@ -1,0 +1,41 @@
+version: "3.5"
+
+services:
+  postgres:
+    image: "postgres:13.3"
+    container_name: "timesystem_postgres"
+    restart: always
+    ports:
+      - "5432"
+    volumes:
+      # docker-entrypoint-initdb executes all ".sql" scripts in
+      # alphabetical order - this is the reason for "1-" and "2-".
+      - ./../../database/init.sql://docker-entrypoint-initdb.d/1-init.sql:ro
+      - ./../../database/seed.sql://docker-entrypoint-initdb.d/2-seed.sql:ro
+      # Persistent data storage for the Postgres database
+      - timesystem_postgres_data:/var/lib/postgresql/data/:rw
+    env_file:
+      - "./postgres/secrets.env"
+    networks:
+      - api_service_net
+  api:
+    image: timesystem-api:latest
+    container_name: "timesystem_api"
+    restart: always
+    ports:
+      - "5000:5000"
+    env_file:
+      - "./api/secrets.env"
+    depends_on:
+      - postgres
+    networks:
+      - api_service_net
+
+networks:
+  api_service_net:
+    ipam:
+      driver: default
+
+volumes:
+  timesystem_postgres_data:
+

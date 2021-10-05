@@ -1,1 +1,1 @@
-curl --request GET --url http://localhost/api/v1/status
+curl --request GET --url https://localhost/api/v1/status

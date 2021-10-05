@@ -1,0 +1,2 @@
+# Golang
+The example is a Golang project with an API. The architecture is based around low copuled microservices with the api, kafka, mongodb (as eventstore), nginx reverse proxy and load balancer, and zookeeper.

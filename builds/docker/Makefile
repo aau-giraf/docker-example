@@ -20,6 +20,7 @@ help:
 	@echo 'General:'
 	@echo '  killall                       - Kills all running containers'
 	@echo '  images                        - Prints all images in the local repository'
+	@echo '  contaners                     - Prints all containers currently active but not necessarily running'
 
 
 # builds a new image from the source code.
@@ -55,6 +56,10 @@ killall:
 .PHONY:
 images:
 	sudo $(DOCKER) images
+
+.PHONY:
+containers:
+	sudo $(DOCKER) ps
 
 .PHONY:
 push: build

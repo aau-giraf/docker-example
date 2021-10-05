@@ -34,6 +34,10 @@ runit: build
 	sudo $(DOCKER) run -p $(EXPOSEDPORT):$(LISTENPORT) -it $(IMAGENAME)
 
 .PHONY:
+killall:
+	sudo $(DOCKER) kill $$(sudo $(DOCKER) ps -q)
+
+.PHONY:
 images:
 	sudo $(DOCKER) images
 

@@ -34,7 +34,7 @@ services:
       - ./nginx/logs:/etc/nginx/logs
       - ./nginx/certs/localhost.crt:/etc/nginx/certs/localhost.crt
       - ./nginx/certs/localhost.key:/etc/nginx/certs/localhost.key
-      - ./nginx/logs/error.log:/etc/nginx/error_log.log
+#      - ./nginx/logs/error.log:/etc/nginx/error_log.log
 #      - ./nginx/cache/:/etc/nginx/cache
     ports:
       - 80:80

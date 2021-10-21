@@ -1,0 +1,38 @@
+# https://github.com/snyk/actions/tree/master/golang
+name: Snyk go
+
+on:
+  push:
+    paths:
+      - "**.go"
+      - "**.js"
+  pull_request:
+    paths:
+      - "**.go"
+      - "**.js"
+  workflow_dispatch:
+
+env:
+  # https://docs.snyk.io/features/snyk-cli/guides-for-our-cli/set-severity-thresholds-for-cli-tests
+  SNYK_THRESHOLD: low #low|medium|high|critical
+  SNYK_OUT_FILE: snyk.sarif
+
+jobs:
+  synk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: snyk/actions/golang@master
+        name: Snyk vulnerability check
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --severity-threshold=${{ env.SNYK_THRESHOLD }}
+            --sarif-file-output=${{ env.SNYK_OUT_FILE }}
+
+      - uses: github/codeql-action/upload-sarif@v1
+        name: Upload result to GitHub Code Scanning
+        with:
+          sarif_file: snyk.sarif

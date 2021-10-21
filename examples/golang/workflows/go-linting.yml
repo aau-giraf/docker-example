@@ -1,0 +1,22 @@
+name: Go linting
+
+on:
+  push:
+    paths:
+      - "**.go"
+  pull_request:
+    paths:
+      - "**.go"
+  workflow_dispatch:
+
+jobs:
+  go-linting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@v2
+        with:
+          Version: latest
+          args: --enable-all --verbose --sort-results --tests --fix
+            --disable maligned --disable interfacer --disable scopelint --disable golint

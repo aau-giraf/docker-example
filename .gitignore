@@ -1,3 +1,7 @@
+# Editor
+**/.editorconfig
+**/.vscode
+
 # Logs
 logs
 *.log

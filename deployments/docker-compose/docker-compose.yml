@@ -5,19 +5,24 @@ version: "3.9"
 
 # https://docs.docker.com/network/
 # networks are used to connect services through IP.
-# The default driver which is used is the "bridge":
+# The overlay driver is used because this compose file should
+#   be compatbile for multiple ndoes spanning different networks.
+#   The "overlay" network lays ontop of the host and allows a
+#   docker swarm to have interconnected nodes.
+# The default driver "bridge" was previously used is because for 
+#   a simple compose configuration "overlay" is not required:
 #   "bridge network is a Link Layer device which forwards traffic between network segments"
 #   https://docs.docker.com/network/bridge/
 networks:
   # Edge networks are the outer preimeter nodes of the network.
   # These nodes are "fully" accessible to the public through eg. HTTP, grpc, and so on.
   edge_net:
-    driver: bridge
+    driver: overlay
   # In contrast to the "edge"-network the "backend" is not directly accessible to the public
   # for the public to access the backend they are most ofently required to access it though
   # a reverse proxy found on the "edge"-network
   backend_net:
-    driver: bridge
+    driver: overlay
 
 services:
   nginx:
